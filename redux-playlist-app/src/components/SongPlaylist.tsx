@@ -1,24 +1,28 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createRandomSong } from "../data";
-import { addSong } from "../store";
+import {
+  addSong,
+  type AppDispatch,
+  removeSong,
+  type RootState,
+} from "../store";
 
 function SongPlaylist() {
   // To Do:
   // Get list of songs
-  const songPlaylist: string[] = [];
-  const dispath = useDispatch();
+
+  // Strongly typed selector
+  const songPlaylist: string[] = useSelector((state: RootState) => state.songs);
+
+  // Strongly typed dispatch
+  const dispatch = useDispatch<AppDispatch>();
 
   const handleSongAdd = (song: string) => {
-    // To Do:
-    // Add song to list of songs
-    console.log(song);
     const action = addSong(song);
-    console.log(song);
-    dispath(action);
+    dispatch(action);
   };
   const handleSongRemove = (song: string) => {
-    // To Do:
-    // Remove song from list of songs
+    dispatch(removeSong(song));
   };
 
   const renderedSongs = songPlaylist.map((song) => {
