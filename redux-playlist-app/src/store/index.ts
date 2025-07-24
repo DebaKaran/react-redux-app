@@ -5,7 +5,7 @@ import {
 } from "@reduxjs/toolkit";
 
 // Define the type for a song (can be expanded later)
-type Song = string;
+export type Song = string;
 
 const initialSongsState: Song[] = [];
 

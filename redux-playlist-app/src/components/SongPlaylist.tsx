@@ -5,6 +5,7 @@ import {
   type AppDispatch,
   removeSong,
   type RootState,
+  type Song,
 } from "../store";
 
 function SongPlaylist() {
@@ -12,16 +13,16 @@ function SongPlaylist() {
   // Get list of songs
 
   // Strongly typed selector
-  const songPlaylist: string[] = useSelector((state: RootState) => state.songs);
+  const songPlaylist: Song[] = useSelector((state: RootState) => state.songs);
 
   // Strongly typed dispatch
   const dispatch = useDispatch<AppDispatch>();
 
-  const handleSongAdd = (song: string) => {
+  const handleSongAdd = (song: Song) => {
     const action = addSong(song);
     dispatch(action);
   };
-  const handleSongRemove = (song: string) => {
+  const handleSongRemove = (song: Song) => {
     dispatch(removeSong(song));
   };
 
