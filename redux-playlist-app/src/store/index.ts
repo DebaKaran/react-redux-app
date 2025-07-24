@@ -1,61 +1,14 @@
-import {
-  configureStore,
-  createAction,
-  createSlice,
-  type PayloadAction,
-} from "@reduxjs/toolkit";
-
-// Define the type for a song (can be expanded later)
-export type Song = string;
-export type Movie = string;
-
-const initialSongsState: Song[] = [];
-const initialMoviesState: Movie[] = [];
-
-export const reset = createAction("app/reset");
-
-console.log(reset());
-const songsSlice = createSlice({
-  name: "song",
-  initialState: initialSongsState,
-  reducers: {
-    addSong(state, action: PayloadAction<string>) {
-      //
-      state.push(action.payload);
-    },
-    removeSong: (state, action: PayloadAction<string>) => {
-      return state.filter((song) => song !== action.payload);
-    },
-  },
-  extraReducers: (builder) => {
-    builder.addCase(reset, () => {
-      return [];
-    });
-  },
-});
-
-const moviesSlice = createSlice({
-  name: "movie",
-  initialState: initialMoviesState,
-  reducers: {
-    addMovie(state, action: PayloadAction<string>) {
-      state.push(action.payload);
-    },
-    removeMovie: (state, action: PayloadAction<string>) => {
-      return state.filter((movie) => movie !== action.payload);
-    },
-  },
-  extraReducers: (builder) => {
-    builder.addCase(reset, () => {
-      return [];
-    });
-  },
-});
+import { configureStore } from "@reduxjs/toolkit";
+import songsSlice from "./slices/songsSlice";
+import { addSong, removeSong } from "./slices/songsSlice";
+import moviesSlice from "./slices/moviesSlice";
+import { addMovie, removeMovie } from "./slices/moviesSlice";
+import { reset } from "./actions";
 
 export const store = configureStore({
   reducer: {
-    songs: songsSlice.reducer,
-    movies: moviesSlice.reducer,
+    songs: songsSlice,
+    movies: moviesSlice,
   },
 });
 
@@ -63,6 +16,4 @@ export const store = configureStore({
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
-//step 2
-export const { addSong, removeSong } = songsSlice.actions;
-export const { addMovie, removeMovie } = moviesSlice.actions;
+export { addSong, removeSong, addMovie, removeMovie, reset };
