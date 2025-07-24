@@ -22,9 +22,11 @@ const songsSlice = createSlice({
     removeSong: (state, action: PayloadAction<string>) => {
       return state.filter((song) => song !== action.payload);
     },
-    reset: () => {
+  },
+  extraReducers: (builder) => {
+    builder.addCase("movie/reset", () => {
       return [];
-    },
+    });
   },
 });
 
@@ -56,7 +58,7 @@ export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
 //step 2
-export const { addSong, removeSong, reset: resetSongs } = songsSlice.actions;
+export const { addSong, removeSong } = songsSlice.actions;
 export const {
   addMovie,
   removeMovie,
