@@ -6,8 +6,10 @@ import {
 
 // Define the type for a song (can be expanded later)
 export type Song = string;
+export type Movie = string;
 
 const initialSongsState: Song[] = [];
+const initialMoviesState: Movie[] = [];
 
 const songsSlice = createSlice({
   name: "song",
@@ -20,12 +22,32 @@ const songsSlice = createSlice({
     removeSong: (state, action: PayloadAction<string>) => {
       return state.filter((song) => song !== action.payload);
     },
+    reset: () => {
+      return [];
+    },
+  },
+});
+
+const moviesSlice = createSlice({
+  name: "movie",
+  initialState: initialMoviesState,
+  reducers: {
+    addMovie(state, action: PayloadAction<string>) {
+      state.push(action.payload);
+    },
+    removeMovie: (state, action: PayloadAction<string>) => {
+      return state.filter((movie) => movie !== action.payload);
+    },
+    reset: () => {
+      return [];
+    },
   },
 });
 
 export const store = configureStore({
   reducer: {
     songs: songsSlice.reducer,
+    movies: moviesSlice.reducer,
   },
 });
 
@@ -34,4 +56,9 @@ export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
 //step 2
-export const { addSong, removeSong } = songsSlice.actions;
+export const { addSong, removeSong, reset: resetSongs } = songsSlice.actions;
+export const {
+  addMovie,
+  removeMovie,
+  reset: resetMovies,
+} = moviesSlice.actions;
