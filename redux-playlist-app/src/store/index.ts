@@ -20,12 +20,13 @@ const store = configureStore({
   },
 });
 
-const startingState = store.getState();
+export { store };
+// const startingState = store.getState();
 
-console.log(JSON.stringify(startingState));
+// console.log(JSON.stringify(startingState));
 
-store.dispatch({ type: "song/addSong", payload: "New Song!!!" });
+// store.dispatch({ type: "song/addSong", payload: "New Song!!!" });
 
-const finalState = store.getState();
+// const finalState = store.getState();
 
-console.log(JSON.stringify(finalState));
+// console.log(JSON.stringify(finalState));
