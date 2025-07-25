@@ -4,12 +4,16 @@ import { removeCar, type RootState } from "../store";
 const CarList = () => {
   //const cars = useSelector((state: RootState) => state.cars.data);
 
-  const cars = useSelector((state: RootState) => {
+  const { cars, name } = useSelector((state: RootState) => {
     const { data, searchTerm } = state.cars;
-
-    return data.filter((car) =>
-      car.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    const { name } = state.form;
+    const filteredCars = data.filter((car) => {
+      return car.name.toLowerCase().includes(name.toLowerCase());
+    });
+    return {
+      cars: filteredCars,
+      name: name,
+    };
   });
 
   const dispatch = useDispatch();
@@ -18,8 +22,11 @@ const CarList = () => {
   };
 
   const renderedCars = cars.map((car) => {
+    //decide if the car should be bold
+    const bold = name && car.name.toLowerCase().includes(name.toLowerCase());
+
     return (
-      <div key={car.id} className="panel">
+      <div key={car.id} className={`panel ${bold && "bold"}`}>
         <p>
           {car.name} - ${car.cost}
         </p>
@@ -32,7 +39,7 @@ const CarList = () => {
       </div>
     );
   });
-  console.log(cars);
+
   return <div>{renderedCars}</div>;
 };
 
