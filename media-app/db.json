@@ -1,5 +1,22 @@
 {
-  "users": [{ "id": 1, "name": "Myra" }],
+  "users": [
+    {
+      "id": "1",
+      "name": "Myra"
+    },
+    {
+      "id": "04e6",
+      "name": "Kelly Howe"
+    },
+    {
+      "id": "94c7",
+      "name": "Sonia Orn"
+    },
+    {
+      "id": "6f82",
+      "name": "Erick Ledner"
+    }
+  ],
   "albums": [],
   "photos": []
 }
