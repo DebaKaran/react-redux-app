@@ -8,7 +8,7 @@ const CarList = () => {
     const { data, searchTerm } = state.cars;
     const { name } = state.form;
     const filteredCars = data.filter((car) => {
-      return car.name.toLowerCase().includes(name.toLowerCase());
+      return car.name.toLowerCase().includes(searchTerm.toLowerCase());
     });
     return {
       cars: filteredCars,
