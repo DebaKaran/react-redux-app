@@ -7,3 +7,8 @@ export const store = configureStore({
   },
 });
 
+export * from "./thunks/fetchUsers";
+
+// These are your inferred types based on the store structure
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
