@@ -6,12 +6,12 @@ interface CarState extends FormState {
 }
 
 interface CarsState {
-  cars: CarState[];
+  data: CarState[];
   searchTerm: string;
 }
 
 const initialCarsState: CarsState = {
-  cars: [],
+  data: [],
   searchTerm: "",
 };
 
@@ -22,8 +22,9 @@ const carsSlice = createSlice({
     changeSearchTerm: (state, action: PayloadAction<string>) => {
       state.searchTerm = action.payload;
     },
+
     addCar: (state, action: PayloadAction<FormState>) => {
-      state.cars.push({
+      state.data.push({
         name: action.payload.name,
         cost: action.payload.cost,
         id: nanoid(),
@@ -31,9 +32,9 @@ const carsSlice = createSlice({
     },
 
     removeCar: (state, action: PayloadAction<string>) => {
-      const updatedCars = state.cars.filter((car) => car.id !== action.payload);
+      const updatedCars = state.data.filter((car) => car.id !== action.payload);
 
-      state.cars = updatedCars;
+      state.data = updatedCars;
     },
   },
 });
