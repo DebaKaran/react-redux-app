@@ -1,10 +1,9 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { fetchUsers, type AppDispatch } from "../store";
+import { fetchUsers } from "../store";
+import { useAppDispatch } from "../store/hooks";
 
 const UsersList = () => {
-  const dispath = useDispatch<AppDispatch>();
-
+  const dispath = useAppDispatch(); //properly typed dispatch
   useEffect(() => {
     dispath(fetchUsers());
   }, [dispath]);
