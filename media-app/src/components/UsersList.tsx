@@ -1,25 +1,39 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { fetchUsers, addUser } from "../store";
 import Button from "./Button";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import Skeleton from "./Skeleton";
+import type { User } from "../types/media";
 
 const UsersList = () => {
-  const dispath = useAppDispatch(); //properly typed dispatch
-  const { isLoading, data, error } = useAppSelector((state) => {
+  const [isLoadingUsers, setIsLoadingUsers] = useState(false);
+  const [loadingUsersError, setLoadingUsersError] = useState<null | string>(
+    null
+  );
+
+  const dispatch = useAppDispatch(); //properly typed dispatch
+  const { data } = useAppSelector((state) => {
     return state.users;
   });
 
   useEffect(() => {
-    dispath(fetchUsers());
-  }, [dispath]);
-  console.log("Loading:", isLoading, "Error:", error, "Data:", data);
+    setIsLoadingUsers(true);
+    dispatch(fetchUsers())
+      .unwrap()
+      .then(() => {
+        console.log("Success");
+      })
+      .catch((err) => {
+        setLoadingUsersError(err);
+      })
+      .finally(() => setIsLoadingUsers(false));
+  }, [dispatch]);
 
-  if (isLoading) {
+  if (isLoadingUsers) {
     return <Skeleton times={5} className="h-6 w-48" />;
   }
 
-  if (error) {
+  if (loadingUsersError) {
     return <div>Error Fetching data ...</div>;
   }
 
@@ -34,7 +48,7 @@ const UsersList = () => {
   });
 
   const handleUserAdd = () => {
-    dispath(addUser());
+    dispatch(addUser());
   };
 
   return (
