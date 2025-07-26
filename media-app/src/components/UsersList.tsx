@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { fetchUsers, addUser } from "../store";
 import Button from "./Button";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
+import Skeleton from "./Skeleton";
 
 const UsersList = () => {
   const dispath = useAppDispatch(); //properly typed dispatch
@@ -15,7 +16,7 @@ const UsersList = () => {
   console.log("Loading:", isLoading, "Error:", error, "Data:", data);
 
   if (isLoading) {
-    return <div>Loading ....</div>;
+    return <Skeleton times={5} className="h-6 w-48" />;
   }
 
   if (error) {
@@ -35,6 +36,7 @@ const UsersList = () => {
   const handleUserAdd = () => {
     dispath(addUser());
   };
+
   return (
     <div>
       <div className="flex flex-row justify-between m-3">
