@@ -11,6 +11,10 @@ const fetchUsers = createAsyncThunk<User[]>("users/fetch", async () => {
 //DEV only
 
 const pause = (duration: number) => {
+  //console.log("Vite Mode:", import.meta.env.MODE);
+  if (import.meta.env.MODE !== "development") {
+    return Promise.resolve();
+  }
   return new Promise<void>((resolve) => {
     setTimeout(resolve, duration);
   });
