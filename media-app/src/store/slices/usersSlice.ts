@@ -2,6 +2,7 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { User } from "../../types/media";
 import { fetchUsers } from "../thunks/fetchUsers";
 import { addUser } from "../thunks/addUser";
+import { deleteUser } from "../thunks/deleteUser";
 
 interface UsersState {
   data: User[];
@@ -42,6 +43,21 @@ const usersSlice = createSlice({
         state.data.push(action.payload);
       })
       .addCase(addUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message || "Something went wrong";
+      });
+
+    builder
+      .addCase(deleteUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.data = state.data.filter((user) => {
+          return user.id !== action.payload.id;
+        });
+      })
+      .addCase(deleteUser.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message || "Something went wrong";
       });
