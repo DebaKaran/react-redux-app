@@ -13,7 +13,10 @@ function useThunk(thunk: any) {
       setIsLoading(true);
       dispatch(thunk(arg))
         .unwrap()
-        .catch((err: string) => setError(err))
+        .catch((err: string) => {
+          console.error("Error details:", err);
+          setError(err);
+        })
         .finally(() => setIsLoading(false));
     },
     [dispatch, thunk]

@@ -9,6 +9,7 @@ export const store = configureStore({
 
 export * from "./thunks/fetchUsers";
 export * from "./thunks/addUser";
+export * from "./thunks/deleteUser";
 
 // These are your inferred types based on the store structure
 export type RootState = ReturnType<typeof store.getState>;
