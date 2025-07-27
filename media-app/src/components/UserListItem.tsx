@@ -13,9 +13,9 @@ const UserListItem: React.FC<UserListItemProps> = ({ user }) => {
   const [doRemoverUser, isLoading, error] = useThunk(deleteUser);
 
   const handleClick = () => {
-    doRemoverUser(user);
+    doRemoverUser(user.id);
   };
-  
+
   return (
     <div className="mb-2 border rounded">
       <div className="flex p-2 justify-between items-center cursor-pointer">
