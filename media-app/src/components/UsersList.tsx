@@ -1,43 +1,26 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { fetchUsers, addUser } from "../store";
 import Button from "./Button";
-import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { useAppSelector } from "../store/hooks";
 import Skeleton from "./Skeleton";
-import type { User } from "../types/media";
-
+import useThunk from "../hooks/useThunk";
 const UsersList = () => {
-  const [isLoadingUsers, setIsLoadingUsers] = useState(false);
-  const [loadingUsersError, setLoadingUsersError] = useState<null | string>(
-    null
-  );
-  const [isCreatingUser, setIsCreatingUser] = useState(false);
-  const [creatingUserError, setCreatingUserError] = useState<null | string>(
-    null
-  );
-
-  const dispatch = useAppDispatch(); //properly typed dispatch
   const { data } = useAppSelector((state) => {
     return state.users;
   });
 
-  useEffect(() => {
-    setIsLoadingUsers(true);
-    dispatch(fetchUsers())
-      .unwrap()
-      .then(() => {
-        console.log("Success");
-      })
-      .catch((err) => {
-        setLoadingUsersError(err);
-      })
-      .finally(() => setIsLoadingUsers(false));
-  }, [dispatch]);
+  const [doAddUser, isAddingUser, addUserError] = useThunk(addUser);
+  const [doLoadUsers, isUsersLoading, usersLoadingError] = useThunk(fetchUsers);
 
-  if (isLoadingUsers) {
+  useEffect(() => {
+    doLoadUsers();
+  }, [doLoadUsers]);
+
+  if (isUsersLoading) {
     return <Skeleton times={5} className="h-6 w-48" />;
   }
 
-  if (loadingUsersError) {
+  if (usersLoadingError) {
     return <div>Error Fetching data ...</div>;
   }
 
@@ -52,23 +35,19 @@ const UsersList = () => {
   });
 
   const handleUserAdd = () => {
-    setIsCreatingUser(true);
-    dispatch(addUser())
-      .unwrap()
-      .catch((err) => setCreatingUserError(err))
-      .finally(() => setIsCreatingUser(true));
+    doAddUser();
   };
 
   return (
     <div>
       <div className="flex flex-row justify-between m-3">
         <h1 className="m-2 text-xl">Users</h1>
-        {isCreatingUser ? (
+        {isAddingUser ? (
           "Creating User..."
         ) : (
           <Button onClick={handleUserAdd}>+ Add User</Button>
         )}
-        {creatingUserError}
+        {addUserError}
       </div>
       {renderedUsers}
     </div>
