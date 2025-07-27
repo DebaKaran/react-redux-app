@@ -13,7 +13,7 @@ const UsersList = () => {
   const [doLoadUsers, isUsersLoading, usersLoadingError] = useThunk(fetchUsers);
 
   useEffect(() => {
-    doLoadUsers();
+    doLoadUsers(undefined);
   }, [doLoadUsers]);
 
   if (isUsersLoading) {
@@ -35,7 +35,7 @@ const UsersList = () => {
   });
 
   const handleUserAdd = () => {
-    doAddUser();
+    doAddUser(undefined);
   };
 
   return (
