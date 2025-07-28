@@ -35,13 +35,11 @@ const UsersList = () => {
 
   return (
     <div>
-      <div className="flex flex-row justify-between m-3 items-center">
-        <h1 className="m-2 text-xl">Users</h1>
-        <Button onClick={handleUserAdd} loading={isAddingUser}>
-          + Add User
-        </Button>
-        {addUserError && "Error creating user..."}
-      </div>
+      <h1 className="m-2 text-xl">Users</h1>
+      <Button onClick={handleUserAdd} loading={isAddingUser}>
+        + Add User
+      </Button>
+      {addUserError && "Error creating user..."}
       {content}
     </div>
   );
