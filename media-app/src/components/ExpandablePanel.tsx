@@ -16,11 +16,11 @@ const ExpandablePanel: React.FC<ExpandablePanelProps> = ({
   };
   return (
     <div className="mb-2 border rounded">
-      <div className="flex justify-between p-2 items-center cursor-pointer">
+      <div className="flex justify-between p-2 items-center">
         <div className="flex flex-row justify-between m-3 items-center">
           {header}
         </div>
-        <div onClick={handleClick}>
+        <div onClick={handleClick} className="cursor-pointer">
           {expanded ? <GoChevronDown /> : <GoChevronLeft />}
         </div>
       </div>
