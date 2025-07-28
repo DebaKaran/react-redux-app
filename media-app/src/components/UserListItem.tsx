@@ -5,6 +5,7 @@ import { deleteUser } from "../store";
 import Button from "./Button";
 import { GoTrash } from "react-icons/go";
 import ExpandablePanel from "./ExpandablePanel";
+import AlbumsList from "./AlbumsList";
 
 interface UserListItemProps {
   user: User;
@@ -27,7 +28,11 @@ const UserListItem: React.FC<UserListItemProps> = ({ user }) => {
     </>
   );
 
-  return <ExpandablePanel header={header}>Content !!!</ExpandablePanel>;
+  return (
+    <ExpandablePanel header={header}>
+      <AlbumsList user={user} />
+    </ExpandablePanel>
+  );
 };
 
 export default UserListItem;
