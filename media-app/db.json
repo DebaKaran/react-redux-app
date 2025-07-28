@@ -5,18 +5,18 @@
       "name": "Myra"
     },
     {
-      "id": "1eae",
+      "id": "2",
       "name": "Hannah Kozey"
     },
     {
-      "id": "04ea",
+      "id": "3",
       "name": "Shannon Schaden"
     },
     {
-      "id": "5b9e",
+      "id": "4",
       "name": "Brent Kassulke"
     }
   ],
-  "albums": [],
+  "albums": [{ "id": 10, "title": "Hiking Trip", "userId": 1 }],
   "photos": []
 }
