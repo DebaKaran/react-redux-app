@@ -9,13 +9,13 @@ interface AlbumsListProps {
   user: User;
 }
 const AlbumsList: React.FC<AlbumsListProps> = ({ user }) => {
-  const { data, error, isLoading } = useFetchAlbumsQuery(user);
+  const { data, error, isFetching } = useFetchAlbumsQuery(user);
 
   const [addAlbum, results] = useAddAlbumMutation();
   console.log(results);
 
   let content;
-  if (isLoading) {
+  if (isFetching) {
     content = <Skeleton times={4} className="h-10 w-full" />;
   } else if (error) {
     content = <div> Error Loading Albums</div>;

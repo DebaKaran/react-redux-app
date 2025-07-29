@@ -12,7 +12,7 @@ const albumsApi = createApi({
       return fetch(...args);
     },
   }),
-  tagTypes: ["Album"], // You must add this line
+  tagTypes: ["Album", "UsersAlbums"] as const, // You must add this line
   endpoints: (builder) => {
     return {
       addAlbum: builder.mutation<Album, User>({
@@ -27,7 +27,7 @@ const albumsApi = createApi({
           };
         },
         invalidatesTags: (result, error, user) => [
-          { type: "Album", id: user.id },
+          { type: "UsersAlbums" as const, id: user.id },
         ],
       }),
       deleteAlbum: builder.mutation<Album, Album>({
@@ -38,7 +38,7 @@ const albumsApi = createApi({
           };
         },
         invalidatesTags: (result, error, album) => [
-          { type: "Album", id: album.userId },
+          { type: "Album" as const, id: album.id },
         ],
       }),
       fetchAlbums: builder.query<Album[], User>({
@@ -51,9 +51,21 @@ const albumsApi = createApi({
             method: "GET",
           };
         },
-        providesTags: (result, error, user) => [
-          { type: "Album", id: user.id }, // Correct structure
-        ],
+        providesTags: (result, error, user) => {
+          const tags: (
+            | { type: "Album"; id: number }
+            | { type: "UsersAlbums"; id: number }
+          )[] = [];
+
+          if (result) {
+            for (const album of result) {
+              tags.push({ type: "Album", id: album.id });
+            }
+          }
+
+          tags.push({ type: "UsersAlbums", id: user.id });
+          return tags;
+        },
       }),
     };
   },
