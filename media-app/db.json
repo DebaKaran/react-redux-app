@@ -39,5 +39,16 @@
       "title": "Modern Aluminum Chair"
     }
   ],
-  "photos": []
+  "photos": [
+    {
+      "id": "e145",
+      "albumId": "b8bb",
+      "url": "https://picsum.photos/seed/lVmEvbem/150/150"
+    },
+    {
+      "id": "3e43",
+      "albumId": "b8bb",
+      "url": "https://picsum.photos/seed/KOM7u/150/150"
+    }
+  ]
 }

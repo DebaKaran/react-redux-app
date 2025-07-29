@@ -4,6 +4,7 @@ import type { Album } from "../types/media";
 import { GoTrash } from "react-icons/go";
 import { useDeleteAlbumMutation } from "../store";
 import Button from "./Button";
+import PhotosList from "./PhotosList";
 
 interface AlbumsListItemProps {
   album: Album;
@@ -31,7 +32,7 @@ const AlbumsListItem: React.FC<AlbumsListItemProps> = ({ album }) => {
 
   return (
     <ExpandablePanel key={album.id} header={header}>
-      List of Photos in the albums
+      <PhotosList album={album} />
     </ExpandablePanel>
   );
 };
