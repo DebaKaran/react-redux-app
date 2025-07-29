@@ -1,8 +1,9 @@
 import React from "react";
 import type { User } from "../types/media";
-import { useFetchAlbumsQuery } from "../store";
+import { useAddAlbumMutation, useFetchAlbumsQuery } from "../store";
 import Skeleton from "./Skeleton";
 import ExpandablePanel from "./ExpandablePanel";
+import Button from "./Button";
 
 interface AlbumsListProps {
   user: User;
@@ -10,12 +11,15 @@ interface AlbumsListProps {
 const AlbumsList: React.FC<AlbumsListProps> = ({ user }) => {
   const { data, error, isLoading } = useFetchAlbumsQuery(user);
 
+  const [addAlbum, results] = useAddAlbumMutation();
+  console.log(results);
+
   let content;
   if (isLoading) {
     content = <Skeleton times={4} />;
   } else if (error) {
     content = <div> Error Loading Albums</div>;
-  } else {
+  } else if (data) {
     content = data.map((album) => {
       const header = <div>{album.title}</div>;
       return (
@@ -26,9 +30,16 @@ const AlbumsList: React.FC<AlbumsListProps> = ({ user }) => {
     });
   }
 
+  const handleAddAlbum = () => {
+    addAlbum(user);
+  };
+
   return (
     <div>
-      <div>Albums for {user.name}</div>
+      <div>
+        Albums for {user.name}
+        <Button onClick={handleAddAlbum}>+ Add Album</Button>
+      </div>
       <div>{content}</div>
     </div>
   );
