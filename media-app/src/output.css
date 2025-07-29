@@ -220,6 +220,9 @@
   .h-8 {
     height: calc(var(--spacing) * 8);
   }
+  .h-10 {
+    height: calc(var(--spacing) * 10);
+  }
   .w-48 {
     width: calc(var(--spacing) * 48);
   }
