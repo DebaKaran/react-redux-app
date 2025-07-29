@@ -1,11 +1,16 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { faker } from "@faker-js/faker";
 import type { Album, User } from "../../types/media";
+import { pause } from "../../utils/pause";
 
 const albumsApi = createApi({
   reducerPath: "albums",
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:3005",
+    fetchFn: async (...args) => {
+      await pause(1000);
+      return fetch(...args);
+    },
   }),
   tagTypes: ["Album"], // You must add this line
   endpoints: (builder) => {
