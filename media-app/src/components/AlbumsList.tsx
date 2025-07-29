@@ -2,8 +2,8 @@ import React from "react";
 import type { User } from "../types/media";
 import { useAddAlbumMutation, useFetchAlbumsQuery } from "../store";
 import Skeleton from "./Skeleton";
-import ExpandablePanel from "./ExpandablePanel";
 import Button from "./Button";
+import AlbumsListItem from "./AlbumsListItem";
 
 interface AlbumsListProps {
   user: User;
@@ -21,12 +21,7 @@ const AlbumsList: React.FC<AlbumsListProps> = ({ user }) => {
     content = <div> Error Loading Albums</div>;
   } else if (data) {
     content = data.map((album) => {
-      const header = <div>{album.title}</div>;
-      return (
-        <ExpandablePanel key={album.id} header={header}>
-          List of Photos in the albums
-        </ExpandablePanel>
-      );
+      return <AlbumsListItem key={album.id} album={album} />;
     });
   }
 
