@@ -23,4 +23,8 @@ export * from "./thunks/deleteUser";
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
-export { useFetchAlbumsQuery, useAddAlbumMutation } from "./apis/albumsApi";
+export {
+  useFetchAlbumsQuery,
+  useAddAlbumMutation,
+  useDeleteAlbumMutation,
+} from "./apis/albumsApi";
