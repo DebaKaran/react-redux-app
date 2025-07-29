@@ -17,6 +17,27 @@
       "name": "Brent Kassulke"
     }
   ],
-  "albums": [{ "id": 10, "title": "Hiking Trip", "userId": 1 }],
+  "albums": [
+    {
+      "id": "10",
+      "title": "Hiking Trip",
+      "userId": 1
+    },
+    {
+      "id": "3eb4",
+      "userId": "1",
+      "title": "Modern Ceramic Pants"
+    },
+    {
+      "id": "b4e6",
+      "userId": "1",
+      "title": "Awesome Concrete Salad"
+    },
+    {
+      "id": "8771",
+      "userId": "1",
+      "title": "Intelligent Aluminum Shoes"
+    }
+  ],
   "photos": []
 }

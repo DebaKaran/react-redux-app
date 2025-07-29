@@ -3,7 +3,6 @@ import { usersReducer } from "./slices/usersSlice";
 
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { albumsApi } from "./apis/albumsApi";
-// import { useFetchAlbumsQuery } from "./apis/albumsApi";
 
 export const store = configureStore({
   reducer: {
@@ -24,4 +23,4 @@ export * from "./thunks/deleteUser";
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
-export { useFetchAlbumsQuery } from "./apis/albumsApi";
+export { useFetchAlbumsQuery, useAddAlbumMutation } from "./apis/albumsApi";
