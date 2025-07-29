@@ -7,6 +7,7 @@ const albumsApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:3005",
   }),
+  tagTypes: ["Album"], // You must add this line
   endpoints: (builder) => {
     return {
       addAlbum: builder.mutation<Album, User>({
@@ -20,6 +21,9 @@ const albumsApi = createApi({
             },
           };
         },
+        invalidatesTags: (result, error, user) => [
+          { type: "Album", id: user.id },
+        ],
       }),
       fetchAlbums: builder.query<Album[], User>({
         query: (user) => {
@@ -31,6 +35,9 @@ const albumsApi = createApi({
             method: "GET",
           };
         },
+        providesTags: (result, error, user) => [
+          { type: "Album", id: user.id }, // Correct structure
+        ],
       }),
     };
   },
