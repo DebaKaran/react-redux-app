@@ -3,14 +3,16 @@ import { usersReducer } from "./slices/usersSlice";
 
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { albumsApi } from "./apis/albumsApi";
+import { photosApi } from "./apis/photosApi";
 
 export const store = configureStore({
   reducer: {
     users: usersReducer,
     [albumsApi.reducerPath]: albumsApi.reducer,
+    [photosApi.reducerPath]: photosApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(albumsApi.middleware), // RTK Query middleware added
+    getDefaultMiddleware().concat(albumsApi.middleware, photosApi.middleware), // RTK Query middleware added
 });
 
 setupListeners(store.dispatch);
@@ -28,3 +30,9 @@ export {
   useAddAlbumMutation,
   useDeleteAlbumMutation,
 } from "./apis/albumsApi";
+
+export {
+  useFetchPhotosQuery,
+  useAddPhotoMutation,
+  useDeletePhotoMutation,
+} from "./apis/photosApi";
